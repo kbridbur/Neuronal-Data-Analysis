@@ -1,0 +1,1 @@
+[num, text, raw] = xlsread('C:\Users\Kyle Bridburg\Downloads\test.xlsx', 'B:B')

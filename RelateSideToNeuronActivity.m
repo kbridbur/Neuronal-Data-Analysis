@@ -1,4 +1,4 @@
-function [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes] = RelateSideToNeuronActivity(ActivityList, ActivityHz, SideList, SideHz)
+function [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, TotalTimeLeft, TotalTimeCenter, TotalTimeRight] = RelateSideToNeuronActivity(ActivityList, ActivityHz, SideList, SideHz)
 %Analyses data and outputs relations between activity and mouse location
 LeftIndexList = [];
 CenterIndexList = [];
@@ -37,4 +37,10 @@ PeakList = FindPeaks(1, ActivityList);
 LeftNumSpikes = NumUniquePeaks(LeftIndexList, PeakList);
 CenterNumSpikes = NumUniquePeaks(CenterIndexList, PeakList);
 RightNumSpikes = NumUniquePeaks(RightIndexList, PeakList);
+
+%Calculate total time spent in each area
+indexConstant = 1/SideHz;
+TotalTimeLeft = numLeft * indexConstant;
+TotalTimeCenter = numCenter * indexConstant;
+TotalTimeRight = numRight * indexConstant;
 end

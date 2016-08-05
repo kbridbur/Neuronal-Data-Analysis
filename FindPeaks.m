@@ -5,7 +5,10 @@ function Peaks = FindPeaks(PeakCutoff, InputList)
   Peaks = [];
   for input = 0:LengthInputs
     if InputList(1, input) >= (PeakCutoff*StandardDev + Average)
-      Peaks = [Peaks input];
+      Peaks = [Peaks 1];
+    end
+    else 
+      Peaks = [Peaks 0];    
     end
   end
 end

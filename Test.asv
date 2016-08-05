@@ -1,1 +1,5 @@
-A = GetTimeStamps(100,[1,2,3,4,5], 1)
+%[num, text, raw] = xlsread('C:\Users\Kyle Bridburg\Downloads\test.xlsx', 'A:N');
+%num
+num = convertTDMS(1 , 'C:\Users\Kyle Bridburg\Documents\MATLAB\NeuronalDataAnalysis\ExampleFiberPhotomertyData.tdms');
+raw = load('C:\Users\Kyle Bridburg\Documents\MATLAB\NeuronalDataAnalysis\ExampleFiberPhotomertyData.mat');
+raw(1,1)

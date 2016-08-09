@@ -1,3 +1,3 @@
-%[num, text, raw] = xlsread('C:\Users\Kyle Bridburg\Downloads\test.xlsx', 'A:N');
-%num
-num = convertTDMS(1 , 'C:\Users\Kyle Bridburg\Documents\MATLAB\NeuronalDataAnalysis\ExampleFiberPhotomertyData.tdms');
+[num, text, raw] = xlsread('C:\Users\Kyle Bridburg\Downloads\test.xlsx', 'A:N');
+LeftRightData = num(:,[1, 13:14]);
+

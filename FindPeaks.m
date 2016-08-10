@@ -1,4 +1,4 @@
-function Peaks = FindPeaks(PeakCutoff, InputList, EstimatedPeakLength)
+function Peaks = FindPeaks(PeakCutoff, InputList, EstimatedPeakLength, InputHz)
   LengthInputs = length(InputList);
   StandardDev = std(InputList);
   Average = mean(InputList);
@@ -10,16 +10,16 @@ function Peaks = FindPeaks(PeakCutoff, InputList, EstimatedPeakLength)
       maxPeak = max(InputList(input:lastIndex))
       for i = input:lastIndex
         if InputList(1,i) == maxPeak
-          Peaks = [Peaks [1;maxPeak]];
+          Peaks = [Peaks [1; i/InputHz; maxPeak]];
         end
         if InputList(1,i) ~= maxPeak
-          Peaks = [Peaks [0; NaN]];
+          Peaks = [Peaks [0; i/InputHz; NaN]];
         end
       end
       input = lastIndex;
     end
     if InputList(1, input) < (PeakCutoff*StandardDev + Average)
-      Peaks = [Peaks [0; NaN]];    
+      Peaks = [Peaks [0; i/InputHz; NaN]];    
     end
     input = input + 1;
   end

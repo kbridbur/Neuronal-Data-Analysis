@@ -11,17 +11,17 @@ numRight = 0;
 RightAvgActivity = 0;
 for i = 1:Length(SideList) %Check if the mouse was on the left right or center and add the activity at that timepoint to the total activity on that side
   equivalentActivityIndex = round(SideHz/ActivityHz, 0);
-  if SideList(1, i) = 0 & SideList(2, i) = 0
+  if SideList(1, i) == 0 & SideList(2, i) == 0
     CenterIndexList = [CenterIndexList equivalentActivityIndex];
     numCenter = numCenter + 1;
     CenterAvgActivity = CenterAvgActivity + ActivityList(1, equivalentActivityIndex);
   end
-  if SideList(1, i) = 1
+  if SideList(1, i) == 1
     LeftIndexList = [RightIndexList equivalentActivityIndex];
     numLeft = numLeft + 1;
     LeftAvgActivity = LeftAvgActivity + ActivityList(1, equivalentActivityIndex);
   end
-  if SideList(2, i) = 1
+  if SideList(2, i) == 1
     RightIndexList = [RightIndexList equivalentActivityIndex];
     numRight = numRight + 1;
     RightAvgActivity = RightAvgActivity + ActivityList(1, equivalentActivityIndex);

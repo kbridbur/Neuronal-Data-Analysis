@@ -3,7 +3,11 @@ function [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, C
 %needed, the user should only have to run this one function
 
 %Get needed data in correct format
-[LeftRightData, FiberData] = GetDataFromFiles(MouseLocationFile, FiberPhotometryFile);
+[num, text, raw] = xlsread(MouseLocationFile, 'A:N');
+FiberMatFile = simpleConvertTDMS(FiberPhotometryFile);
+%do something to read the FiberPhotometry file
+toRotateFiberData = UntitledDev1ai1.Data;
+FiberData = rot90(UntitledDev1ai1.Data);
 %If some variables haven't been entered set them to default values
 if ~exist(ReductionLayers, 'var')
   ReductionLayers = 0;
@@ -25,9 +29,12 @@ end
 if ReductionLayers > 0
   smoothFiberData = ReduceNoise(ReductionLayers, WindowSize, FiberData);
 end
-%timpStampedFiberData = GetTimeStamps(FiberPhotometryHz, FiberData, 0);
-%peakMarkedFiberData = FindPeaks(PeakCutoff, FiberData, 10, FiberPhotometryHz);
-%[LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, LeftTimeSpent, CenterTimeSpent, RightTimeSpent] = RelateSideToNeuronActivity(FiberData, FiberPhotoMetryHz, LeftRightData, MouseVisualizationHz);
+a = num(:,[1, 13:14]);
+b = rot90(a);
+LeftRightData = flipud(b);
+timpStampedFiberData = GetTimeStamps(FiberPhotometryHz, FiberData, 0);
+peakMarkedFiberData = FindPeaks(PeakCutoff, FiberData, 10, FiberPhotometryHz);
+[LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, LeftTimeSpent, CenterTimeSpent, RightTimeSpent] = RelateSideToNeuronActivity(FiberData, FiberPhotoMetryHz, LeftRightData, MouseVisualizationHz);
 %plot the data
 end
 

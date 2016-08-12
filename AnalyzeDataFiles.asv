@@ -34,7 +34,11 @@ GetPeakTimes(peakMarkedFiberData)
 [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, LeftTimeSpent, CenterTimeSpent, RightTimeSpent] = RelateSideToNeuronActivity(FiberData, FiberPhotometryHz, LeftRightData, MouseVisualizationHz)
 x = timeStampedFiberData(1,FiberStartIndex:FiberEndIndex);
 y = timeStampedFiberData(2,FiberStartIndex:FiberEndIndex);
-g = LeftRightData
+f = LeftRightData(1,LRStartIndex:LREndIndex);
+g = LeftRightData(2,LRStartIndex:LREndIndex);
+h = LeftRightData(3,LRStartIndex:LREndIndex);
 plot(x,y)
+hold on;
+area(,f,g,f,h
 end
 

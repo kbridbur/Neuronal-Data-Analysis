@@ -37,6 +37,13 @@ y = timeStampedFiberData(2,FiberStartIndex:FiberEndIndex);
 f = LeftRightData(1,LRStartIndex:LREndIndex);
 g = LeftRightData(2,LRStartIndex:LREndIndex);
 h = LeftRightData(3,LRStartIndex:LREndIndex);
-plot(x,y,f,g,f,h), legend('FiberVolts', 'Left', 'Right')
+plot(x,y)
+hold on;
+lplot = area(f,g)
+rplot = area(f,h)
+lplot(1).FaceColor = [1,1,0];
+rplot(1).FaceColor = [1,0,1];
+legend('Voltage', 'Left', 'Right');
+hold off;
 end
 

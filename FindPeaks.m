@@ -3,24 +3,24 @@ function Peaks = FindPeaks(PeakCutoff, InputList, EstimatedPeakLength, InputHz)
   StandardDev = std(InputList);
   Average = mean(InputList);
   Peaks = [];
-  input = 1;
-  while input < LengthInputs
-    if InputList(1, input) >= (PeakCutoff*StandardDev + Average)
-      lastIndex = min(input+EstimatedPeakLength, LengthInputs)
-      maxPeak = max(InputList(input:lastIndex))
-      for i = input:lastIndex
-        if InputList(1,i) == maxPeak
-          Peaks = [Peaks [1; i/InputHz; maxPeak]];
+  a = 1;
+  while a < LengthInputs
+    if InputList(1, a) >= (PeakCutoff*StandardDev + Average)
+      lastIndex = min(a+EstimatedPeakLength, LengthInputs);
+      maxPeak = max(InputList(a:lastIndex));
+      for b = a:lastIndex
+        if InputList(1,b) == maxPeak
+          Peaks = [Peaks [1; b/InputHz; maxPeak]];
         end
-        if InputList(1,i) ~= maxPeak
-          Peaks = [Peaks [0; i/InputHz; NaN]];
+        if InputList(1,b) ~= maxPeak
+          Peaks = [Peaks [0; b/InputHz; NaN]];
         end
       end
-      input = lastIndex;
+      a = lastIndex;
     end
-    if InputList(1, input) < (PeakCutoff*StandardDev + Average)
-      Peaks = [Peaks [0; i/InputHz; NaN]];    
+    if InputList(1, a) < (PeakCutoff*StandardDev + Average)
+      Peaks = [Peaks [0; a/InputHz; NaN]];    
     end
-    input = input + 1;
+    a = a + 1;
   end
 end

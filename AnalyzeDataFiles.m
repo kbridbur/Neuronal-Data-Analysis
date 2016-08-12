@@ -29,7 +29,7 @@ if ReductionLayers > 0
   smoothFiberData = ReduceNoise(ReductionLayers, WindowSize, FiberData);
 end
 timeStampedFiberData = GetTimeStamps(FiberPhotometryHz, FiberData, 0);
-peakMarkedFiberData = FindPeaks(PeakCutoff, FiberData, 10, FiberPhotometryHz);
+peakMarkedFiberData = FindPeaks(PeakCutoff, FiberData, FiberPhotometryHz);
 GetPeakTimes(peakMarkedFiberData)
 [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, LeftTimeSpent, CenterTimeSpent, RightTimeSpent] = RelateSideToNeuronActivity(FiberData, FiberPhotometryHz, LeftRightData, MouseVisualizationHz)
 x = timeStampedFiberData(1,FiberStartIndex:FiberEndIndex);
@@ -43,7 +43,7 @@ lplot = area(f,g)
 rplot = area(f,h)
 lplot(1).FaceColor = [1,1,0];
 rplot(1).FaceColor = [1,0,1];
-legend('Voltage', 'Left', 'Right');
+legend('Voltage', 'Right', 'Left');
 hold off;
 end
 

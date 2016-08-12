@@ -33,7 +33,7 @@ CenterAvgActivity = CenterAvgActivity/numCenter;
 RightAvgActivity = RightAvgActivity/numRight;
 
 %Find number of unique activity peaks in each location
-PeakList = FindPeaks(.5, ActivityList, 20, ActivityHz);
+PeakList = FindPeaks(.5, ActivityList, ActivityHz);
 LeftNumSpikes = NumUniquePeaks(LeftIndexList, PeakList);
 CenterNumSpikes = NumUniquePeaks(CenterIndexList, PeakList);
 RightNumSpikes = NumUniquePeaks(RightIndexList, PeakList);

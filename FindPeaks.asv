@@ -1,24 +1,22 @@
-function Peaks = FindPeaks(PeakCutoff, InputList)
-  LengthInputs = length(InputList);
-  StandardDev = std(InputList);
-  Average = mean(InputList);
+function Peaks = FindPeaks(PeakCutoff, InputList, InputHz)
+  inputLength = length(InputList);
+  lengthSections = round(length(InputList)*.05,0);
+  if lengthSections < 30
+    lengthSections = length(InputList);
+  end
+  numSections = ceil(inputLength/lengthSections);
+  leftOver = mod(inputLength, lengthSections);
   Peaks = [];
-  for input = 0:LengthInputs
-    if InputList(1, input) >= (PeakCutoff*StandardDev + Average)
-      maxPeak = max(InputList(input:input+20))
-      for i = input:input+20
-        if InputList(1,i) = maxPeak
-          Peaks = [Peaks 1;maxPeak]
-        end
-        else
-          Peaks = [Peaks 0; NaN] 
-      end
-      end
-      
-      input = input + 20
+  currentSection = 0;
+  for section = 1:numSections
+    if currentSection == 0 
+      sectionList = InputList(1, 1:lengthSections);
     end
-    else 
-      Peaks = [Peaks 0; NaN];    
+    if currentSection > 0
+      sectionList = InputList(1, lengthSections*currentSection:lengthSections*(currentSection+1));
     end
+    stdev = std(sectionList);
+    average = avg(sectionList);
+    Peaks = [Peaks [1, a/InputHz, InputList(a)]
   end
 end

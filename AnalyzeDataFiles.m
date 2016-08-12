@@ -1,4 +1,4 @@
-function [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, LeftTimeSpent, CenterTimeSpent, RightTimeSpent] = AnalyzeDataFiles(FiberPhotometryFile, MouseLocationFile, FiberPhotometryHz, MouseVisualizationHz, StartTime, EndTime, ReductionLayers, PeakCutoff, WindowSize)
+function [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, LeftTimeSpent, CenterTimeSpent, RightTimeSpent] = AnalyzeDataFiles(FiberPhotometryFile, MouseLocationFile, FiberPhotometryHz, MouseVisualizationHz, EndTime, StartTime, ReductionLayers, PeakCutoff, WindowSize)
 %This function should run all the other ones and return all the information
 %needed, the user should only have to run this one function
 
@@ -15,13 +15,15 @@ if nargin < 7
   ReductionLayers = 0;
 end
 if nargin < 6
-  EndTime = length(LeftRightData)*MouseVisualizationHz;
-
+  StartTime = 0;
 end
 if nargin < 5
-  StartTime = 0; 
+  EndTime = min(length(LeftRightData)/MouseVisualizationHz, length(FiberData)/FiberPhotometryHz);
 end
-
+FiberEndIndex = round(FiberPhotometryHz*EndTime);
+FiberStartIndex = round(max(FiberPhotometryHz*StartTime,1));
+LRStartIndex = round(max(MouseVisualizationHz*StartTime,1));
+LREndIndex = round(MouseVisualizationHz*EndTime);
 %actual function is here
 if ReductionLayers > 0
   smoothFiberData = ReduceNoise(ReductionLayers, WindowSize, FiberData);
@@ -30,8 +32,11 @@ timeStampedFiberData = GetTimeStamps(FiberPhotometryHz, FiberData, 0);
 peakMarkedFiberData = FindPeaks(PeakCutoff, FiberData, 10, FiberPhotometryHz);
 GetPeakTimes(peakMarkedFiberData)
 [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, LeftTimeSpent, CenterTimeSpent, RightTimeSpent] = RelateSideToNeuronActivity(FiberData, FiberPhotometryHz, LeftRightData, MouseVisualizationHz)
-x = timeStampedFiberData(1,:);
-y = timeStampedFiberData(2,:);
-plot(x,y)
+x = timeStampedFiberData(1,FiberStartIndex:FiberEndIndex);
+y = timeStampedFiberData(2,FiberStartIndex:FiberEndIndex);
+f = LeftRightData(1,LRStartIndex:LREndIndex);
+g = LeftRightData(2,LRStartIndex:LREndIndex);
+h = LeftRightData(3,LRStartIndex:LREndIndex);
+plot(x,y,f,g,f,h), legend('FiberVolts', 'Left', 'Right')
 end
 

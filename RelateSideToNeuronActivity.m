@@ -1,46 +1,46 @@
-function [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, TotalTimeLeft, TotalTimeCenter, TotalTimeRight] = RelateSideToNeuronActivity(ActivityList, ActivityHz, SideList, SideHz)
+function [leftAvgActivity, centerAvgActivity, rightAvgActivity, leftNumSpikes, centerNumSpikes, rightNumSpikes, totalTimeLeft, totalTimeCenter, totalTimeRight] = RelateSideToNeuronActivity(activityList, activityHz, sideList, sideHz)
 %Analyses data and outputs relations between activity and mouse location
-LeftIndexList = [];
-CenterIndexList = [];
-RightIndexList = [];
+leftIndexList = [];
+centerIndexList = [];
+rightIndexList = [];
 numLeft = 0;
-LeftAvgActivity = 0;
+leftAvgActivity = 0;
 numCenter = 0;
-CenterAvgActivity = 0;
+centerAvgActivity = 0;
 numRight = 0;
-RightAvgActivity = 0;
-for i = 1:length(SideList) %Check if the mouse was on the left right or center and add the activity at that timepoint to the total activity on that side
-  equivalentActivityIndex = min(1, i*round(ActivityHz/SideHz, 0));
-  if SideList(3, i) == 0 && SideList(2, i) == 0
-    CenterIndexList = [CenterIndexList equivalentActivityIndex];
+rightAvgActivity = 0;
+for i = 1:length(sideList) %Check if the mouse was on the left right or center and add the activity at that timepoint to the total activity on that side
+  equivalentActivityIndex = min(1, i*round(activityHz/sideHz, 0));
+  if sideList(3, i) == 0 && sideList(2, i) == 0
+    centerIndexList = [centerIndexList equivalentActivityIndex];
     numCenter = numCenter + 1;
-    CenterAvgActivity = CenterAvgActivity + ActivityList(1, equivalentActivityIndex);
+    centerAvgActivity = centerAvgActivity + activityList(1, equivalentActivityIndex);
   end
-  if SideList(3, i) == 1
-    LeftIndexList = [LeftIndexList equivalentActivityIndex];
+  if sideList(3, i) == 1
+    leftIndexList = [leftIndexList equivalentActivityIndex];
     numLeft = numLeft + 1;
-    LeftAvgActivity = LeftAvgActivity + ActivityList(1, equivalentActivityIndex);
+    leftAvgActivity = leftAvgActivity + activityList(1, equivalentActivityIndex);
   end
-  if SideList(2, i) == 1
-    RightIndexList = [RightIndexList equivalentActivityIndex];
+  if sideList(2, i) == 1
+    rightIndexList = [rightIndexList equivalentActivityIndex];
     numRight = numRight + 1;
-    RightAvgActivity = RightAvgActivity + ActivityList(1, equivalentActivityIndex);
+    rightAvgActivity = rightAvgActivity + activityList(1, equivalentActivityIndex);
   end  
 end
 %Turn the totals into averages
-LeftAvgActivity = LeftAvgActivity/numLeft;
-CenterAvgActivity = CenterAvgActivity/numCenter;
-RightAvgActivity = RightAvgActivity/numRight;
+leftAvgActivity = leftAvgActivity/numLeft;
+centerAvgActivity = centerAvgActivity/numCenter;
+rightAvgActivity = rightAvgActivity/numRight;
 
 %Find number of unique activity peaks in each location
-PeakList = FindPeaks(.5, ActivityList, ActivityHz);
-LeftNumSpikes = NumUniquePeaks(PeakList, ActivityHz);%, LeftIndexList);
-CenterNumSpikes = NumUniquePeaks(PeakList, ActivityHz);%, LeftIndexList);
-RightNumSpikes = NumUniquePeaks(PeakList, ActivityHz);%, LeftIndexList);
+peakList = FindPeaks(.5, activityList, activityHz);
+leftNumSpikes = NumUniquePeaks(peakList, activityHz);%, LeftIndexList);
+centerNumSpikes = NumUniquePeaks(peakList, activityHz);%, LeftIndexList);
+rightNumSpikes = NumUniquePeaks(peakList, activityHz);%, LeftIndexList);
 
 %Calculate total time spent in each area
-indexConstant = 1/SideHz;
-TotalTimeLeft = numLeft * indexConstant;
-TotalTimeCenter = numCenter * indexConstant;
-TotalTimeRight = numRight * indexConstant;
+indexConstant = 1/sideHz;
+totalTimeLeft = numLeft * indexConstant;
+totalTimeCenter = numCenter * indexConstant;
+totalTimeRight = numRight * indexConstant;
 end

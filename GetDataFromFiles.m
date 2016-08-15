@@ -1,21 +1,21 @@
-function [LeftRightData, FiberData] = GetDataFromFiles(MouseLocationFile, FiberFile)
+function [leftRightData, fiberData] = GetDataFromFiles(mouseLocationFile, fiberFile)
 if nargin < 2
   %Prompt the user for the file
   [filename,pathname]=uigetfile({'*.tdms','All Files (*.tdms)'},'Choose a TDMS File');
-  FiberFile=fullfile(pathname,filename);
+  fiberFile=fullfile(pathname,filename);
 end
 if nargin < 1  
   %Prompt the user for the file
   [filename,pathname]=uigetfile({'*.xlsx','All Files (*.xlsx)'},'Choose a xlsx File');
-  MouseLocationFile=fullfile(pathname,filename);
+  mouseLocationFile=fullfile(pathname,filename);
 end
-[num, text, raw] = xlsread(MouseLocationFile, 'A:N');
-matfile = strrep(FiberFile, 'tdms', 'mat')
-g= simpleConvertTDMS(FiberFile);
-a = num(:,[1, 13:14]);
+[num, text, raw] = xlsread(mouseLocationFile, 'A:N');
+matfile = strrep(fiberFile, 'tdms', 'mat')
+g= simpleConvertTDMS(fiberFile);
+a = num(:,[, 13:14]);
 b = rot90(a);
-LeftRightData = flipud(b);
+leftRightData = flipud(b);
 load(matfile)
-FiberData = rot90(UntitledDev1ai0.Data);
+fiberData = rot90(UntitledDev1ai0.Data);
 end
 

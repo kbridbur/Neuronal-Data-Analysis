@@ -14,7 +14,7 @@
 %average you want to be the cutoff for determining peaks
 %-WindowSize, (optional) size of averaging window used in noise reduction
 
-AnalyzeDataFiles(FiberData, LeftRightData, 100, 10, 100, 0, 100);
+AnalyzeDataFiles(FiberData, LeftRightData, 100, 10, 200, 100, 100);
 %If you'd like to see multiple sections of the data its more efficient to
 %write multiple AnalyzeDataFiles here as the data will only need to load
 %once

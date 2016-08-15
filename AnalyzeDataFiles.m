@@ -1,9 +1,9 @@
-function [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, LeftTimeSpent, CenterTimeSpent, RightTimeSpent] = AnalyzeDataFiles(FiberPhotometryFile, MouseLocationFile, FiberPhotometryHz, MouseVisualizationHz, EndTime, StartTime, ReductionLayers, PeakCutoff, WindowSize)
+function [LeftAvgActivity, CenterAvgActivity, RightAvgActivity, LeftNumSpikes, CenterNumSpikes, RightNumSpikes, LeftTimeSpent, CenterTimeSpent, RightTimeSpent] = AnalyzeDataFiles(FiberData, LeftRightData, FiberPhotometryHz, MouseVisualizationHz, EndTime, StartTime, ReductionLayers, PeakCutoff, WindowSize)
 %This function should run all the other ones and return all the information
 %needed, the user should only have to run this one function
 
 %Get needed data in correct format
-[LeftRightData, FiberData] = GetDataFromFiles(MouseLocationFile, FiberPhotometryFile);
+%[LeftRightData, FiberData] = GetDataFromFiles(MouseLocationFile, FiberPhotometryFile);
 %If some variables haven't been entered set them to default values
 if nargin < 9
   WindowSize = 11;
@@ -45,13 +45,14 @@ z = peakMarkedFiberData(3, FiberStartIndex:FiberEndIndex);
 f = LeftRightData(1,LRStartIndex:LREndIndex);
 g = LeftRightData(2,LRStartIndex:LREndIndex);
 h = LeftRightData(3,LRStartIndex:LREndIndex);
+figure()
 lplot = area(f,g)
 hold on;
 rplot = area(f,h)
 lplot(1).FaceColor = [1,1,0];
 rplot(1).FaceColor = [1,0,1];
 plot(x,y,'LineWidth', 2)
-plot(x,z,'g')
+plot(x,z,'k', 'LineWidth', 2)
 hold off;
 axis([StartTime EndTime 0 maximum*1.1]);
 legend('Right', 'Left', 'Voltage', 'Peaks');

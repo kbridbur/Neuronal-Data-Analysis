@@ -55,6 +55,9 @@ plot(x,y,'LineWidth', 2)
 plot(x,z,'k', 'LineWidth', 2)
 hold off;
 axis([StartTime EndTime 0 maximum*1.1]);
+title(['Fiber Data from ', int2str(StartTime/10), 's to ', int2str(EndTime/10), 's']);
+xlabel('Time in Seconds*10');
+ylabel('Voltage');
 legend('Right', 'Left', 'Voltage', 'Peaks');
 end
 

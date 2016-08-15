@@ -14,13 +14,16 @@
 %average you want to be the cutoff for determining peaks
 %-WindowSize, (optional) size of averaging window used in noise reduction
 
-AnalyzeDataFiles(FiberData, LeftRightData, 100, 10);
+AnalyzeDataFiles(FiberData, LeftRightData, 100, 10, 100, 0, 100);
+%If you'd like to see multiple sections of the data its more efficient to
+%write multiple AnalyzeDataFiles here as the data will only need to load
+%once
 
 
 %V1.0.0 Kyle Bridburg 2016-08-15
 %https://github.com/kbridbur
 %Creates basic functionality
 %Known Bugs: Smoothing data causes the data to shift to the right on the
-%graph (most likely due to handling of dataset start and end in relation to windowsize), FindPeaks does not work for some values of sectioning and indexes
+%graph, FindPeaks does not work for some values of sectioning and indexes
 %incorrectly in those cases, GetPeakTimes creates multiple duplicates of
 %the same time ~36.

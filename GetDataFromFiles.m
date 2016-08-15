@@ -12,7 +12,7 @@ end
 [num, text, raw] = xlsread(mouseLocationFile, 'A:N');
 matfile = strrep(fiberFile, 'tdms', 'mat')
 g= simpleConvertTDMS(fiberFile);
-a = num(:,[, 13:14]);
+a = num(:,[1, 13:14]);
 b = rot90(a);
 leftRightData = flipud(b);
 load(matfile)

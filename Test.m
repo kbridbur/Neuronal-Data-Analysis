@@ -1,1 +1,1 @@
-AnalyzeDataFiles('ExampleFiberPhotomertyData.tdms', 'ExampleRawData.xlsx', 100, 10, 300)
+AnalyzeDataFiles('ExampleFiberPhotomertyData.tdms', 'ExampleRawData.xlsx', 100, 10, 100, 0, 10);

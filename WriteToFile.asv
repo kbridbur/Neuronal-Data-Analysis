@@ -1,0 +1,9 @@
+function = WriteToFile(timeStampedList, timeList)
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+timeStampedList(2,:) = timeStampedList(2,:)*.1;
+toWrite = rot90(timeStampedList, 3);
+d = datetime('today')
+xlswrite([d, '
+end
+

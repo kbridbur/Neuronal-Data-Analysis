@@ -31,7 +31,7 @@ if reductionLayers > 0
   smoothFiberData = ReduceNoise(reductionLayers, windowSize, fiberData);
   peakMarkedFiberData = FindPeaks(peakCutoff, smoothFiberData, fiberPhotometryHz);
 end
-if reductionLayers == 0
+if reductionLayers <= 0
   peakMarkedFiberData = FindPeaks(peakCutoff, fiberData, fiberPhotometryHz);
 end
 timeStampedFiberData = GetTimeStamps(fiberPhotometryHz, fiberData, 0, startTime);
@@ -40,7 +40,11 @@ peakTimes = GetPeakTimes(peakMarkedFiberData, fiberPhotometryHz, startTime);%
 [leftAvgActivity, centerAvgActivity, rightAvgActivity, leftNumSpikes, centerNumSpikes, rightNumSpikes, leftTimeSpent, centerTimeSpent, rightTimeSpent] = RelateSideToNeuronActivity(fiberData, fiberPhotometryHz, leftRightData, mouseVisualizationHz);
 x = timeStampedFiberData(1,:);%(1,fiberStartIndex:fiberEndIndex);
 y = timeStampedFiberData(2,:);%(2,fiberStartIndex:fiberEndIndex);
-z = peakMarkedFiberData(2,1:length(timeStampedFiberData));%(3, fiberStartIndex:fiberEndIndex);
+w = find(~isnan(peakMarkedFiberData(1,:)));
+for i = 1:length(w)
+  w(1,i) = w(1,i)/fiberPhotometryHz+startTime;
+end
+z = peakMarkedFiberData(2,:);%1:length(timeStampedFiberData));%(3, fiberStartIndex:fiberEndIndex);
 f = leftRightData(1,:);%(1,LRStartIndex:LREndIndex);
 g = leftRightData(2,:);%LRStartIndex:LREndIndex);
 h = leftRightData(3,:);%LRStartIndex:LREndIndex);
@@ -51,13 +55,13 @@ rplot = area(f,h)
 lplot(1).FaceColor = [1,1,0];
 rplot(1).FaceColor = [1,0,1];
 plot(x,y,'LineWidth', 2)
-plot(x,z,'k', 'LineWidth', 2)
+plot(w,z,'k', 'LineWidth', 2)
 hold off;
 axis([startTime endTime 0 maximum*1.1]);
 title(['Fiber Data from ', int2str(startTime/10), 's to ', int2str(endTime/10), 's']);
 xlabel('Time in Seconds*10');
 ylabel('Voltage');
 legend('Right', 'Left', 'Voltage', 'Peaks');
-WriteToFile(timeStampedFiberData, peakTimes)
+WriteToFile(timeStampedFiberData, peakTimes);
 end
 

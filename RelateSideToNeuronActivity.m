@@ -34,9 +34,9 @@ rightAvgActivity = rightAvgActivity/numRight;
 
 %Find number of unique activity peaks in each location
 peakList = FindPeaks(.5, activityList, activityHz);
-leftNumSpikes = NumUniquePeaks(peakList, activityHz, leftIndexList);
-centerNumSpikes = NumUniquePeaks(peakList, activityHz, centerIndexList);
-rightNumSpikes = NumUniquePeaks(peakList, activityHz, rightIndexList);
+leftNumSpikes = NumUniquePeaks(peakList, leftIndexList);
+centerNumSpikes = NumUniquePeaks(peakList, centerIndexList);
+rightNumSpikes = NumUniquePeaks(peakList, rightIndexList);
 
 %Calculate total time spent in each area
 indexConstant = 1/sideHz;

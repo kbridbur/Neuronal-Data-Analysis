@@ -1,5 +1,4 @@
-function peakTimes = GetPeakTimes(peakMarkedData)
+function peakTimes = GetPeakTimes(peakMarkedData, peakHz, startTime)
 indices = find(peakMarkedData(1,:)>=1);
-peakTimes = peakMarkedData(2,indices);
+peakTimes = indices*1/peakHz;
 end
-

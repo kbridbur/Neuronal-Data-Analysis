@@ -11,7 +11,7 @@ function timeStampedCoords = GetTimeStamps(samplingFrequency, inputList, onlyFul
       end
     end
     if onlyFullSeconds <= 0
-      timeStamp = startTime + (input)/samplingFrequency;
+      timeStamp = (input)/samplingFrequency;
     end
     timeStampedCoords = [timeStampedCoords [timeStamp; inputList(1, input)]]; % May need to change based on how to data is being input
   end

@@ -9,7 +9,7 @@ if nargin < 9
   windowSize = 11;
 end
 if nargin < 8
-  peakCutoff = 1.3;
+  peakCutoff = 1.2;
 end
 if nargin < 7
   reductionLayers = 0;
@@ -34,16 +34,18 @@ end
 if reductionLayers == 0
   peakMarkedFiberData = FindPeaks(peakCutoff, fiberData, fiberPhotometryHz);
 end
-timeStampedFiberData = GetTimeStamps(fiberPhotometryHz, fiberData, 0, startTime);
-maximum = max(peakMarkedFiberData(2,:));
-peakTimes = GetPeakTimes(peakMarkedFiberData, fiberPhotometryHz, startTime);%
-[leftAvgActivity, centerAvgActivity, rightAvgActivity, leftNumSpikes, centerNumSpikes, rightNumSpikes, leftTimeSpent, centerTimeSpent, rightTimeSpent] = RelateSideToNeuronActivity(fiberData, fiberPhotometryHz, leftRightData, mouseVisualizationHz);
-x = timeStampedFiberData(1,:);%(1,fiberStartIndex:fiberEndIndex);
-y = timeStampedFiberData(2,:);%(2,fiberStartIndex:fiberEndIndex);
-z = peakMarkedFiberData(2,1:length(timeStampedFiberData));%(3, fiberStartIndex:fiberEndIndex);
-f = leftRightData(1,:);%(1,LRStartIndex:LREndIndex);
-g = leftRightData(2,:);%LRStartIndex:LREndIndex);
-h = leftRightData(3,:);%LRStartIndex:LREndIndex);
+timeStampedFiberData = GetTimeStamps(fiberPhotometryHz, fiberData, 0);
+maximum = max(peakMarkedFiberData(3,:));
+GetPeakTimes(peakMarkedFiberData);%
+[leftAvgActivity, centerAvgActivity, rightAvgActivity, leftNumSpikes, centerNumSpikes, rightNumSpikes, leftTimeSpent, centerTimeSpent, rightTimeSpent] = RelateSideToNeuronActivity(fiberData, fiberPhotometryHz, leftRightData, mouseVisualizationHz)
+length(peakMarkedFiberData)
+length(fiberData)
+x = timeStampedFiberData;%(1,fiberStartIndex:fiberEndIndex);
+y = timeStampedFiberData;%(2,fiberStartIndex:fiberEndIndex);
+z = peakMarkedFiberData;%(3, fiberStartIndex:fiberEndIndex);
+f = leftRightData;%(1,LRStartIndex:LREndIndex);
+g = leftRightData(2,LRStartIndex:LREndIndex);
+h = leftRightData(3,LRStartIndex:LREndIndex);
 figure()
 lplot = area(f,g)
 hold on;
@@ -58,6 +60,6 @@ title(['Fiber Data from ', int2str(startTime/10), 's to ', int2str(endTime/10), 
 xlabel('Time in Seconds*10');
 ylabel('Voltage');
 legend('Right', 'Left', 'Voltage', 'Peaks');
-WriteToFile(timeStampedFiberData, peakTimes)
+xlswrite(timeStampedFiberData);
 end
 

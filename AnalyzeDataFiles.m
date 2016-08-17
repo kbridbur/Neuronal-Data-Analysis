@@ -38,20 +38,21 @@ timeStampedFiberData = GetTimeStamps(fiberPhotometryHz, fiberData, 0, startTime)
 maximum = max(peakMarkedFiberData(2,:));
 peakTimes = GetPeakTimes(peakMarkedFiberData, fiberPhotometryHz, startTime);%
 [leftAvgActivity, centerAvgActivity, rightAvgActivity, leftNumSpikes, centerNumSpikes, rightNumSpikes, leftTimeSpent, centerTimeSpent, rightTimeSpent] = RelateSideToNeuronActivity(fiberData, fiberPhotometryHz, leftRightData, mouseVisualizationHz);
-x = timeStampedFiberData(1,:);%(1,fiberStartIndex:fiberEndIndex);
-y = timeStampedFiberData(2,:);%(2,fiberStartIndex:fiberEndIndex);
+statsMatrix = {'0', 'Left', 'Center', 'Right'; 'Activity', leftAvgActivity, centerAvgActivity, rightAvgActivity;'Peaks', leftNumSpikes, centerNumSpikes, rightNumSpikes;'Time', leftTimeSpent, centerTimeSpent, rightTimeSpent}
+x = timeStampedFiberData(1,:);
+y = timeStampedFiberData(2,:);
 w = find(~isnan(peakMarkedFiberData(1,:)));
 for i = 1:length(w)
   w(1,i) = w(1,i)/fiberPhotometryHz+startTime;
 end
-z = peakMarkedFiberData(2,:);%1:length(timeStampedFiberData));%(3, fiberStartIndex:fiberEndIndex);
-f = leftRightData(1,:);%(1,LRStartIndex:LREndIndex);
-g = leftRightData(2,:);%LRStartIndex:LREndIndex);
-h = leftRightData(3,:);%LRStartIndex:LREndIndex);
+z = peakMarkedFiberData(2,:);
+f = leftRightData(1,:);
+g = leftRightData(2,:);
+h = leftRightData(3,:);
 figure()
-lplot = area(f,g)
+lplot = area(f,g);
 hold on;
-rplot = area(f,h)
+rplot = area(f,h);
 lplot(1).FaceColor = [1,1,0];
 rplot(1).FaceColor = [1,0,1];
 plot(x,y,'LineWidth', 2)
@@ -62,6 +63,6 @@ title(['Fiber Data from ', int2str(startTime/10), 's to ', int2str(endTime/10), 
 xlabel('Time in Seconds*10');
 ylabel('Voltage');
 legend('Right', 'Left', 'Voltage', 'Peaks');
-WriteToFile(timeStampedFiberData, peakTimes);
+WriteToFile(timeStampedFiberData, peakTimes, statsMatrix);
 end
 

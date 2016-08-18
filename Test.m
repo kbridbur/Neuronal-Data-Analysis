@@ -24,7 +24,6 @@ AnalyzeDataFiles(FiberData, LeftRightData, 100, 10);
 %https://github.com/kbridbur
 %Creates basic functionality
 %Known Bugs: Smoothing data causes the data to shift to the right on the
-%graph, FindPeaks does not work for some values of sectioning and indexes
-%incorrectly in those cases, GetPeakTimes creates multiple duplicates of
+%graph, NumUniquePeaks is not working, GetPeakTimes creates multiple duplicates of
 %the same time ~36, at high resolutions peak graph is stretched due to
 %differences in total number of indices (unsure why these are different)

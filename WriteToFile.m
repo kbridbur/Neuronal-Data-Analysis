@@ -1,6 +1,6 @@
 function [] = WriteToFile(timeStampedList, timeList, activityMatrix)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%Converts information into a better readable format and writes it to an
+%xlsx file
 correctedTimes = timeStampedList(2,:)*.01;
 realTimeStampList = [timeStampedList(1,:);correctedTimes];
 d = date;

@@ -1,4 +1,5 @@
 function noiseReducedCoords = ReduceNoise(reductionLayers, windowSize, inputList)
+  %Reduces noise by simple moving average of data
   toBeAveraged = [];
   lengthInputs = length(inputList);
   noiseReducedCoords = inputList;

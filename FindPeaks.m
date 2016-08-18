@@ -1,4 +1,7 @@
-function Peaks = FindPeaks(PeakCutoff, InputList, InputHz)
+function Peaks = FindPeaks(PeakCutoff, InputList)
+  %Divides inputs into smaller sections and marks peaks based on the avg
+  %and std dev of that section. This is to avoid inaccurate marking in the
+  %case that the data has a general trend throughout
   inputLength = length(InputList);
   lengthSections = round(length(InputList)*.04);
   if lengthSections < 30

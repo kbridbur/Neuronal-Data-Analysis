@@ -1,4 +1,5 @@
 function [leftRightData, fiberData] = GetDataFromFiles(mouseLocationFile, fiberFile)
+%pulls data from files and formats it
 if nargin < 2
   %Prompt the user for the file
   [filename,pathname]=uigetfile({'*.tdms','All Files (*.tdms)'},'Choose a TDMS File');

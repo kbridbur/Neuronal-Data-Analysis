@@ -1,9 +1,6 @@
 function [leftAvgActivity, centerAvgActivity, rightAvgActivity, leftNumSpikes, centerNumSpikes, rightNumSpikes, leftTimeSpent, centerTimeSpent, rightTimeSpent] = AnalyzeDataFiles(fiberData, leftRightData, fiberPhotometryHz, mouseVisualizationHz, endTime, startTime, reductionLayers, peakCutoff, windowSize)
-%This function should run all the other ones and return all the information
-%needed, the user should only have to run this one function
+%Summation of all the other functions, puts everything together
 
-%Get needed data in correct format
-%[LeftRightData, FiberData] = GetDataFromFiles(MouseLocationFile, FiberPhotometryFile);
 %If some variables haven't been entered set them to default values
 if nargin < 9
   windowSize = 11;
@@ -29,14 +26,14 @@ leftRightData = leftRightData(:,LRStartIndex:LREndIndex);
 %actual function is here
 if reductionLayers > 0
   smoothFiberData = ReduceNoise(reductionLayers, windowSize, fiberData);
-  peakMarkedFiberData = FindPeaks(peakCutoff, smoothFiberData, fiberPhotometryHz);
+  peakMarkedFiberData = FindPeaks(peakCutoff, smoothFiberData);
 end
 if reductionLayers <= 0
-  peakMarkedFiberData = FindPeaks(peakCutoff, fiberData, fiberPhotometryHz);
+  peakMarkedFiberData = FindPeaks(peakCutoff, fiberData);
 end
 timeStampedFiberData = GetTimeStamps(fiberPhotometryHz, fiberData, 0, startTime);
 maximum = max(peakMarkedFiberData(2,:));
-peakTimes = GetPeakTimes(peakMarkedFiberData, fiberPhotometryHz, startTime);%
+peakTimes = GetPeakTimes(peakMarkedFiberData, fiberPhotometryHz);
 [leftAvgActivity, centerAvgActivity, rightAvgActivity, leftNumSpikes, centerNumSpikes, rightNumSpikes, leftTimeSpent, centerTimeSpent, rightTimeSpent] = RelateSideToNeuronActivity(fiberData, fiberPhotometryHz, leftRightData, mouseVisualizationHz);
 statsMatrix = {'0', 'Left', 'Center', 'Right'; 'Activity', leftAvgActivity, centerAvgActivity, rightAvgActivity;'Peaks', leftNumSpikes, centerNumSpikes, rightNumSpikes;'Time', leftTimeSpent, centerTimeSpent, rightTimeSpent}
 x = timeStampedFiberData(1,:);

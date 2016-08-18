@@ -27,4 +27,4 @@ AnalyzeDataFiles(FiberData, LeftRightData, 100, 10);
 %graph, FindPeaks does not work for some values of sectioning and indexes
 %incorrectly in those cases, GetPeakTimes creates multiple duplicates of
 %the same time ~36, at high resolutions peak graph is stretched due to
-%deletion of indices so it can be the same length as the rest
+%differences in total number of indices (unsure why these are different)

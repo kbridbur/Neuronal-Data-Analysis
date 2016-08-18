@@ -1,9 +1,6 @@
 function peakNumber = NumUniquePeaks(peakMarkedList, indexList)
 %Find the number of unique peaks in a section of an activity list
-
-%Consider doing this by grouping indexlists (if the list is [1,2,7,10,15]
-%you can assume there are 3 peaks by looking at how close the indices are
-%the peaks at 1 and 2 are most likely two parts of a single peak)
+%currently not working
 peakNumber = 0;
 indices = find((peakMarkedList(1,:))==1);
 areaIndices = intersect(indices, indexList);

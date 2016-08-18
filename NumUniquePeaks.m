@@ -3,7 +3,7 @@ function peakNumber = NumUniquePeaks(peakMarkedList, indexList)
 %currently not working
 peakNumber = 0;
 indices = find((peakMarkedList(1,:))==1);
-areaIndices = intersect(indices, indexList);
+areaIndices = FindIntersect(indices, indexList);
 for i = areaIndices
   if i-1 > 0
     if peakMarkedList(1,i) - peakMarkedList(1,i-1) > 0

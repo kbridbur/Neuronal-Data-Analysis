@@ -13,9 +13,13 @@ if nargin < 7
 end
 if nargin < 6
   startTime = 0;
+else
+  startTime = startTime * mouseVisualizationHz;
 end
 if nargin < 5
   endTime = min(length(leftRightData)/mouseVisualizationHz, length(fiberData)/fiberPhotometryHz);
+else
+  endTime = endTime * mouseVisualizationHz;
 end
 fiberEndIndex = round(fiberPhotometryHz*endTime);
 fiberStartIndex = round(max(fiberPhotometryHz*startTime,1));

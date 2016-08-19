@@ -3,7 +3,7 @@ function peakTimes = GetPeakTimes(peakMarkedData, peakHz)
 %converting to time, returns center times of each peak
 peakTimes = [];
 indices = find(peakMarkedData(1,:)>=1);
-roughPeakTimes = indices*1/peakHz
+roughPeakTimes = indices*1/peakHz;
 startPeak = roughPeakTimes(1,1);
 lastI= startPeak;
 diff = 1/peakHz;

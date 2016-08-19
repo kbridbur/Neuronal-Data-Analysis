@@ -31,11 +31,12 @@ leftRightData = leftRightData(:,LRStartIndex:LREndIndex);
 if reductionLayers > 0
   smoothFiberData = ReduceNoise(reductionLayers, windowSize, fiberData);
   peakMarkedFiberData = FindPeaks(peakCutoff, smoothFiberData);
+  timeStampedFiberData = GetTimeStamps(fiberPhotometryHz, smoothFiberData, 0, startTime);
 end
 if reductionLayers <= 0
+  timeStampedFiberData = GetTimeStamps(fiberPhotometryHz, fiberData, 0, startTime);  
   peakMarkedFiberData = FindPeaks(peakCutoff, fiberData);
 end
-timeStampedFiberData = GetTimeStamps(fiberPhotometryHz, fiberData, 0, startTime);
 maximum = max(peakMarkedFiberData(2,:));
 peakTimes = GetPeakTimes(peakMarkedFiberData, fiberPhotometryHz);
 [leftAvgActivity, centerAvgActivity, rightAvgActivity, leftNumSpikes, centerNumSpikes, rightNumSpikes, leftTimeSpent, centerTimeSpent, rightTimeSpent] = RelateSideToNeuronActivity(fiberData, fiberPhotometryHz, leftRightData, mouseVisualizationHz);
